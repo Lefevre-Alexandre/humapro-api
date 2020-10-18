@@ -80,4 +80,5 @@ class UserRepository extends ServiceEntityRepository
         return $query->setMaxResults(1)->getOneOrNullResult();
     }
 
+
 }

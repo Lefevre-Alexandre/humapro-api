@@ -33,8 +33,23 @@ class AuthController extends AbstractController
 
         //vérifie si l'utilisateur est bien un utilisateur enregistrée
         if( $user_available ) {
+
+            //cas ou token déjà existant
+            if( $user_available->getAccessToken() ) {
+                return $this->json([
+                    'token' => $user_available->getAccessToken()              
+                ]);
+            }
+
+            //cas ou ne dispose pas encore de token
+            $user_available->setAccessToken( $this->getToken() );
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist( $user_available );
+            $entityManager->flush();
+
             return $this->json([
-                'message' => 'Token a retourner'              
+                'token' => $user_available->getAccessToken()              
             ]);
         }
 
@@ -108,5 +123,6 @@ class AuthController extends AbstractController
         
             return $user;
     }
+
 
 }
