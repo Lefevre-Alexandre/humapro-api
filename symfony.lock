@@ -223,6 +223,9 @@
     "symfony/polyfill-php80": {
         "version": "v1.18.1"
     },
+    "symfony/process": {
+        "version": "v4.4.15"
+    },
     "symfony/routing": {
         "version": "4.2",
         "recipe": {
@@ -248,6 +251,15 @@
     },
     "symfony/var-exporter": {
         "version": "v4.4.15"
+    },
+    "symfony/web-server-bundle": {
+        "version": "3.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "3.3",
+            "ref": "dae9b39fd6717970be7601101ce5aa960bf53d9a"
+        }
     },
     "symfony/yaml": {
         "version": "v4.4.15"
