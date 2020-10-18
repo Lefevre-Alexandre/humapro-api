@@ -22,8 +22,9 @@ class AuthController extends AbstractController
         //vérification des paramétres non vide
         if( empty( $email ) || empty( $password ) ) {
             return $this->json([
-                'message' => 'Paramétres manquants'              
-            ]);
+                'message'   => 'Bad parameter',
+                'response'  =>  404             
+            ], 404);
         }
 
         //récupération de l'utilisateur celon les paramétres
@@ -37,8 +38,10 @@ class AuthController extends AbstractController
             //cas ou token déjà existant
             if( $user_available->getAccessToken() ) {
                 return $this->json([
-                    'token' => $user_available->getAccessToken()              
-                ]);
+                    'message'   => 'Access token retrieve with success',
+                    'response'  => 200,
+                    'token'     => $user_available->getAccessToken()              
+                ], 200);
             }
 
             //cas ou ne dispose pas encore de token
@@ -49,14 +52,17 @@ class AuthController extends AbstractController
             $entityManager->flush();
 
             return $this->json([
+                'message'   => 'Access token created and retrieve with success',
+                'response'  => 200,
                 'token' => $user_available->getAccessToken()              
-            ]);
+            ], 200);
         }
 
         //le cas échéant si l'utilisateur n'est pas un utilisateur enregistré.
         return $this->json([
-            'message' => 'Utilisateur non connu'              
-        ]);
+            'message'   => 'User not authentified',
+            'response'  => 404             
+        ], 404);
     }
 
     /**
@@ -83,14 +89,16 @@ class AuthController extends AbstractController
             $entityManager->flush();
 
             return $this->json([
-                'message' => 'You get logout'     
-            ]);
+                'message'   => 'You get logged out',
+                'response'  => 200      
+            ], 200);
         }
 
         //cas échéant si le token n'est pas lier à aucun utilisateur
         return $this->json([
-            'message' => 'No access logout'     
-        ]);
+            'message'   => 'Bad request parameter',
+            'response'  => 404      
+        ], 404);
 
     }
 

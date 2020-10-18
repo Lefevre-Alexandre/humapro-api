@@ -19,10 +19,11 @@ class UserController extends AbstractController
         $user = $this->getDoctrine()->getRepository(User::class)->find($id);
         
         return $this->json([
+            'message'   => 'User retrieve with success',
             'response'  => 200,
             'id'        => $user->getId(),
             'nom'       => $user->getNom(),
             'prenom'    => $user->getPrenom()
-        ]);
+        ], 200);
     }
 }
