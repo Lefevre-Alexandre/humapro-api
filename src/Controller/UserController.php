@@ -11,14 +11,14 @@ class UserController extends AbstractController
 {
     
     /**
-     * @Route("/api/v1/user/{id}", name="user-show")
+     * @Route("/api/v1/me", name="user-show")
      */
-    public function show(Request $request, $id )
+    public function show(Request $request )
     {   
         $token = $request->headers->get('token');
         
 
-        if( empty( $id ) || empty( $token ) ) {
+        if( empty( $token ) ) {
             return $this->json([
                 'message'   => 'Bad paramters',
                 'response'  => 404      
@@ -26,7 +26,7 @@ class UserController extends AbstractController
         }
 
         //retireve user by id and token
-        $user = $this->getDoctrine()->getRepository(User::class)->checkUserAvailableAndTokenAvailable( $id, $token );
+        $user = $this->getDoctrine()->getRepository(User::class)->checkUserAvailableAndTokenAvailable($token );
         
         if( $user ) {
             return $this->json([

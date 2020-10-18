@@ -84,11 +84,11 @@ class UserRepository extends ServiceEntityRepository
      * @return User
      * Vérifie si l'utilisateur et bien un utilisateur enregistré et que le token est bien rensigner et valide
      */
-    public function checkUserAvailableAndTokenAvailable( $id, $token )
+    public function checkUserAvailableAndTokenAvailable( $token )
     {
         $qb = $this->createQueryBuilder('u')
-        ->where('u.id = :id', 'u.access_token = :token')
-        ->setParameters( array('id'=> $id, 'token'=> $token) );
+        ->where('u.access_token = :token')
+        ->setParameter( 'token', $token );
         
 
         $query = $qb->getQuery();
