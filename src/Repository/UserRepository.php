@@ -47,4 +47,38 @@ class UserRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    /**
+     * @return User
+     * Vérifie si le token est bien attribuer à un utilisateur et retourne l'utilisateur.
+     */
+    public function findUserWithToken( $token )
+    {
+        $qb = $this->createQueryBuilder('u')
+        ->where('u.access_token = :token')
+        ->setParameter('token', $token);
+        
+
+        $query = $qb->getQuery();
+
+        return $query->setMaxResults(1)->getOneOrNullResult();
+    }
+
+    /**
+     * @return User
+     * Vérifie si l'utilisateur et bien un utilisateur enregistré et retourne l'utilisateur
+     */
+    public function checkUserAvailable( $email, $password )
+    {
+        $qb = $this->createQueryBuilder('u')
+        ->where('u.email = :email', 'u.password = :password')
+        ->setParameters( array('email'=> $email, 'password'=> $password) );
+        
+
+        $query = $qb->getQuery();
+
+        return $query->setMaxResults(1)->getOneOrNullResult();
+    }
+
+
 }
