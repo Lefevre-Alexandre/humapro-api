@@ -20,6 +20,7 @@ class UserController extends AbstractController
         
         return $this->json([
             'response'  => 200,
+            'id'        => $user->getId(),
             'nom'       => $user->getNom(),
             'prenom'    => $user->getPrenom()
         ]);
