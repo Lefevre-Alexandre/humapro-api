@@ -49,16 +49,23 @@ class AuthController extends AbstractController
      */
     public function logout(Request $request)
     {
+
         //récupération des paramétres requis
         $token  = $request->query->get('token');
+
         //récupération de l'utilisateur lier au token
         $user   = $this->checkToken( $token );
 
         //vérification que le token est bien attribuer à un utilisateur l'utilisateur
         if( $user ){
+   
+            //reset du token et token lifetime
+            $user->setAccessToken(null);
+            $user->setTokenLifetime(null);
 
-            //reset du token
-            //$user->setAccessToken('');
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist( $user );
+            $entityManager->flush();
 
             return $this->json([
                 'message' => 'You get logout'     
