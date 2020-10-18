@@ -22,7 +22,7 @@ class AuthController extends AbstractController
         //vérification des paramétres non vide
         if( empty( $email ) || empty( $password ) ) {
             return $this->json([
-                'message'   => 'Bad parameter',
+                'message'   => 'Parameter missing see doc',
                 'response'  =>  404             
             ], 404);
         }
@@ -96,7 +96,7 @@ class AuthController extends AbstractController
 
         //cas échéant si le token n'est pas lier à aucun utilisateur
         return $this->json([
-            'message'   => 'Bad request parameter',
+            'message'   => 'Bad request auth required see doc',
             'response'  => 404      
         ], 404);
 

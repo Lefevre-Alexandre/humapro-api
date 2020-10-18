@@ -20,7 +20,7 @@ class UserController extends AbstractController
 
         if( empty( $token ) ) {
             return $this->json([
-                'message'   => 'Bad paramters',
+                'message'   => 'Bad paramter auth missing see doc',
                 'response'  => 404      
             ], 404);
         }
