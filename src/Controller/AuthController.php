@@ -72,7 +72,7 @@ class AuthController extends AbstractController
     {
 
         //récupération des paramétres requis
-        $token  = $request->query->get('token');
+        $token = $request->headers->get('token');
 
         //récupération de l'utilisateur lier au token
         $user   = $this->checkToken( $token );
